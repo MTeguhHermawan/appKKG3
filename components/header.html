@@ -1,0 +1,50 @@
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg shadow-md z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('home')">
+        <div class="w-11 h-11 lg:w-14 lg:h-14 rounded-2xl gradient-hero flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6 lg:w-8 lg:h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div class="hidden sm:block">
+          <span id="nav-logo-text" class="font-bold text-xl text-blue-700">KKG Gugus III</span>
+          <p class="text-xs text-slate-500 font-medium">Kelompok Kerja Guru</p>
+        </div>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm active" onclick="navigateTo('home'); return false;" data-page="home">Beranda</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('about'); return false;" data-page="about">Tentang</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('agenda'); return false;" data-page="agenda">Agenda</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('documentation'); return false;" data-page="documentation">Dokumentasi</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('transparency'); return false;" data-page="transparency">Transparansi</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('feedback'); return false;" data-page="feedback">Masukan</a>
+        <a href="#" class="nav-link text-slate-700 hover:text-blue-600 font-semibold text-sm" onclick="navigateTo('contact'); return false;" data-page="contact">Kontak</a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors" onclick="toggleMobileMenu()">
+        <svg class="w-6 h-6 text-slate-700" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t shadow-lg">
+    <div class="px-4 py-3 space-y-2">
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('home'); return false;">Beranda</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('about'); return false;">Tentang</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('agenda'); return false;">Agenda</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('documentation'); return false;">Dokumentasi</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('transparency'); return false;">Transparansi</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('feedback'); return false;">Masukan</a>
+      <a href="#" class="block px-4 py-3 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-600 font-semibold transition-colors" onclick="mobileNavigateTo('contact'); return false;">Kontak</a>
+    </div>
+  </div>
+</nav>
