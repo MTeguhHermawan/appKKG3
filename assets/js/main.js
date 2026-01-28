@@ -1,9 +1,9 @@
 // Default configuration
 const defaultConfig = {
-  hero_title: 'KKG Gugus III',
+  hero_title: 'KKG Gugus III | Kec Sumedang Utara',
   hero_subtitle: 'Bersama Membangun Pendidikan Berkualitas',
-  hero_description: 'Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.',
-  ketua_name: 'Drs. Ahmad Suryadi, M.Pd.',
+  hero_description: 'Selamat datang di aplikasi KKG Gugus III | Kec Sumedang Utara. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.',
+  ketua_name: 'Mohamad Teguh Hermawan, S.S.',
   ketua_greeting: 'Assalamualaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan kepada Allah SWT atas segala rahmat dan karunia-Nya. KKG Gugus III hadir sebagai wadah bagi guru-guru Sekolah Dasar untuk saling berbagi pengetahuan, pengalaman, dan praktik terbaik dalam dunia pendidikan. Kami berkomitmen untuk terus meningkatkan kualitas pembelajaran demi masa depan anak-anak bangsa. Mari bersama-sama kita wujudkan pendidikan yang berkualitas, inovatif, dan bermakna bagi generasi penerus Indonesia.',
   contact_email: 'kkg.gugus3@email.com',
   contact_phone: '+62 812-3456-7890',
