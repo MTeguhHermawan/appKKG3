@@ -8,9 +8,6 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- SDK (jika diperlukan) -->
-  <script src="/_sdk/element_sdk.js"></script>
-  
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -161,20 +158,37 @@
       box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
     }
 
-    /* FIX: Text Color for Hero Section */
+    /* PERBAIKAN: Text Color untuk Hero Section dengan kontras tinggi */
     .hero-title {
-      color: white !important;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: #ffffff !important;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+      -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
     }
     
     .hero-subtitle {
-      color: #fef3c7 !important;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      color: #fef08a !important; /* Kuning terang */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      font-weight: 700;
+    }
+    
+    .hero-description {
+      color: #e0f2fe !important; /* Biru muda terang */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Memastikan background hero cukup gelap */
+    .hero-container {
+      position: relative;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%) !important;
+    }
+    
+    /* Badge styling */
+    .hero-badge {
+      background-color: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
   </style>
-  
-  <!-- SDK Script -->
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 overflow-auto">
   <div id="app-wrapper" class="w-full h-full">
@@ -204,7 +218,7 @@
       ketua_greeting: 'Assalamualaikum Warahmatullahi Wabarakatuh. Puji syukur kita panjatkan kepada Allah SWT atas segala rahmat dan karunia-Nya. KKG Gugus III hadir sebagai wadah bagi guru-guru Sekolah Dasar untuk saling berbagi pengetahuan, pengalaman, dan praktik terbaik dalam dunia pendidikan. Kami berkomitmen untuk terus meningkatkan kualitas pembelajaran demi masa depan anak-anak bangsa. Mari bersama-sama kita wujudkan pendidikan yang berkualitas, inovatif, dan bermakna bagi generasi penerus Indonesia.',
       contact_email: 'kkg.gugus3@email.com',
       contact_phone: '+62 812-3456-7890',
-      contact_address: 'Sekretariat KKG Gugus III\nJl. Pendidikan No. 123\nKecamatan Cendekia, Indonesia'
+      contact_address: 'Sekretariat KKG Gugus III<br>Jl. Pendidikan No. 123<br>Kecamatan Cendekia, Indonesia'
     };
 
     // ==================== NAVIGATION FUNCTIONS ====================
@@ -252,23 +266,21 @@
       try {
         console.log('Loading page:', pageId);
         
-        // Simulate loading (in real implementation, you would fetch from server)
+        // Get page content
         const pageContent = getPageContent(pageId);
         document.getElementById('page-content').innerHTML = pageContent;
         
         // Update config for the loaded page
         updatePageConfig();
         
-        // Initialize page-specific scripts
-        if (typeof initPage === 'function') {
-          initPage();
-        }
-        
         // Add active class to page
         document.querySelectorAll('.page').forEach(page => {
           page.classList.remove('active');
         });
-        document.getElementById('page-' + pageId).classList.add('active');
+        const pageElement = document.getElementById('page-' + pageId);
+        if (pageElement) {
+          pageElement.classList.add('active');
+        }
         
       } catch (error) {
         console.error('Error loading page:', error);
@@ -298,14 +310,25 @@
 
     // ==================== UPDATE CONFIG ====================
     function updatePageConfig() {
-      // Update hero section
+      // Update hero section - PERBAIKAN: Tambah class untuk styling
       const heroTitle = document.getElementById('hero-title');
       const heroSubtitle = document.getElementById('hero-subtitle');
       const heroDescription = document.getElementById('hero-description');
       
-      if (heroTitle) heroTitle.textContent = defaultConfig.hero_title;
-      if (heroSubtitle) heroSubtitle.textContent = defaultConfig.hero_subtitle;
-      if (heroDescription) heroDescription.textContent = defaultConfig.hero_description;
+      if (heroTitle) {
+        heroTitle.textContent = defaultConfig.hero_title;
+        heroTitle.classList.add('hero-title');
+      }
+      
+      if (heroSubtitle) {
+        heroSubtitle.textContent = defaultConfig.hero_subtitle;
+        heroSubtitle.classList.add('hero-subtitle');
+      }
+      
+      if (heroDescription) {
+        heroDescription.textContent = defaultConfig.hero_description;
+        heroDescription.classList.add('hero-description');
+      }
       
       // Update contact info
       const contactEmail = document.getElementById('contact-email-display');
@@ -415,27 +438,33 @@
       return `
         <!-- ==================== HOME PAGE ==================== -->
         <div id="page-home" class="page active">
-          <!-- Hero Section -->
-          <section class="gradient-hero wave-pattern pt-24 lg:pt-32 pb-20 lg:pb-32 relative overflow-hidden">
+          <!-- Hero Section dengan background lebih gelap -->
+          <section class="hero-container wave-pattern pt-24 lg:pt-32 pb-20 lg:pb-32 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10">
               <div class="absolute top-20 left-10 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
               <div class="absolute top-40 right-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
               <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-sm rounded-full mb-8 shadow-lg">
+                <div class="inline-flex items-center gap-2 px-5 py-2.5 hero-badge rounded-full mb-8 shadow-lg">
                   <span class="w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse"></span>
                   <span class="text-white/95 text-sm font-semibold tracking-wide">Kelompok Kerja Guru SD</span>
                 </div>
-                <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">KKG Gugus III</h1>
-                <h2 id="hero-subtitle" class="text-xl sm:text-2xl lg:text-4xl font-bold text-yellow-300 mb-8 tracking-wide">Bersama Membangun Pendidikan Berkualitas</h2>
-                <p id="hero-description" class="text-lg lg:text-xl text-white/95 mb-12 max-w-3xl mx-auto leading-relaxed font-light">Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.</p>
+                <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">KKG Gugus III</h1>
+                <h2 id="hero-subtitle" class="text-xl sm:text-2xl lg:text-4xl font-bold mb-8 tracking-wide">Bersama Membangun Pendidikan Berkualitas</h2>
+                <p id="hero-description" class="text-lg lg:text-xl mb-12 max-w-3xl mx-auto leading-relaxed font-light">Selamat datang di website resmi KKG Gugus III. Wadah kolaborasi dan pengembangan profesional guru-guru Sekolah Dasar untuk menciptakan pembelajaran yang inovatif dan bermakna.</p>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <button onclick="navigateTo('agenda')" class="btn-primary w-full sm:w-auto px-8 py-4 bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-bold rounded-2xl shadow-2xl flex items-center justify-center gap-3 text-base">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                     Lihat Agenda
+                  </button>
+                  <button onclick="navigateTo('about')" class="btn-primary w-full sm:w-auto px-8 py-4 bg-white/25 hover:bg-white/35 backdrop-blur-sm text-white font-bold rounded-2xl border-2 border-white/40 flex items-center justify-center gap-3 shadow-xl text-base">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Tentang Kami
                   </button>
                 </div>
               </div>
@@ -445,6 +474,54 @@
               <svg viewbox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveaspectratio="none" class="w-full h-16 lg:h-24">
                 <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
               </svg>
+            </div>
+          </section>
+
+          <!-- Statistics Section -->
+          <section class="py-20 lg:py-28 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div class="text-center mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold text-slate-800 mb-4">KKG Gugus III dalam Angka</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">Komitmen kami terhadap pengembangan pendidikan tercermin dalam berbagai program dan kegiatan yang telah dilaksanakan</p>
+              </div>
+              <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                <div class="stat-card gradient-soft-blue rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-blue-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                  </div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-blue-700 mb-2">8</div>
+                  <div class="text-slate-700 font-semibold text-base">Sekolah Anggota</div>
+                </div>
+                <div class="stat-card gradient-soft-yellow rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-yellow-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                  </div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-yellow-700 mb-2">45</div>
+                  <div class="text-slate-700 font-semibold text-base">Guru Aktif</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-green-100 to-green-200 rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-green-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                  </div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-green-700 mb-2">24</div>
+                  <div class="text-slate-700 font-semibold text-base">Kegiatan/Tahun</div>
+                </div>
+                <div class="stat-card bg-gradient-to-br from-purple-100 to-purple-200 rounded-3xl p-8 lg:p-10 text-center card-hover shadow-lg">
+                  <div class="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 rounded-2xl bg-purple-500 flex items-center justify-center shadow-xl">
+                    <svg class="w-8 h-8 lg:w-10 lg:h-10 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                  </div>
+                  <div class="text-4xl lg:text-5xl font-extrabold text-purple-700 mb-2">15+</div>
+                  <div class="text-slate-700 font-semibold text-base">Tahun Berdiri</div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
@@ -464,12 +541,12 @@
             </div>
             
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-              <!-- Content will be loaded here -->
               <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16">
                 <h2 class="text-3xl font-bold text-slate-800 mb-8">Tentang KKG Gugus III</h2>
                 <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
                   <p>Kelompok Kerja Guru (KKG) Gugus III adalah wadah kegiatan profesional guru Sekolah Dasar yang terdiri dari sejumlah guru dari beberapa sekolah di wilayah tertentu.</p>
                   <p>KKG Gugus III beranggotakan 8 Sekolah Dasar dengan total 45 guru aktif yang berkomitmen untuk terus mengembangkan kompetensi profesional.</p>
+                  <p>Melalui KKG, guru-guru dapat saling bertukar pengalaman, mendiskusikan permasalahan pembelajaran, dan bersama-sama mencari solusi untuk meningkatkan kualitas pendidikan di sekolah masing-masing.</p>
                 </div>
               </div>
             </div>
@@ -494,10 +571,17 @@
               <div class="bg-white rounded-3xl shadow-xl p-10 lg:p-16">
                 <h2 class="text-3xl font-bold text-slate-800 mb-8">Agenda Mendatang</h2>
                 <div class="space-y-6">
-                  <div class="bg-white rounded-3xl shadow-lg p-8 border-l-4 border-green-500">
+                  <div class="bg-white rounded-3xl shadow-lg p-8 border-l-4 border-green-500 card-hover">
                     <h3 class="text-xl font-bold text-slate-800 mb-3">Workshop Kurikulum Merdeka</h3>
-                    <p class="text-slate-600 mb-2">15 Januari 2025</p>
-                    <p class="text-slate-500">SDN 01 Merdeka</p>
+                    <p class="text-slate-600 mb-2">📅 15 Januari 2025 | 🕐 08:00 - 15:00 WIB</p>
+                    <p class="text-slate-500">📍 SDN 01 Merdeka</p>
+                    <p class="text-slate-600 mt-3">Pelatihan implementasi Kurikulum Merdeka untuk guru kelas 1-6 dengan narasumber dari Dinas Pendidikan.</p>
+                  </div>
+                  <div class="bg-white rounded-3xl shadow-lg p-8 border-l-4 border-blue-500 card-hover">
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Rapat Koordinasi Bulanan</h3>
+                    <p class="text-slate-600 mb-2">📅 28 Januari 2025 | 🕐 13:00 - 16:00 WIB</p>
+                    <p class="text-slate-500">📍 SDN 02 Harapan</p>
+                    <p class="text-slate-600 mt-3">Evaluasi program semester 1 dan perencanaan kegiatan semester 2 tahun ajaran 2024/2025.</p>
                   </div>
                 </div>
               </div>
@@ -577,19 +661,19 @@
 
     // Placeholder functions for other pages
     function getDocumentationPage() {
-      return `<div id="page-documentation" class="page"><div class="pt-24 text-center"><h1>Dokumentasi Page</h1></div></div>`;
+      return `<div id="page-documentation" class="page"><div class="pt-24 text-center"><h1 class="text-3xl font-bold">Dokumentasi Kegiatan</h1><p class="mt-4">Halaman dokumentasi akan menampilkan galeri foto kegiatan KKG Gugus III.</p></div></div>`;
     }
 
     function getTransparencyPage() {
-      return `<div id="page-transparency" class="page"><div class="pt-24 text-center"><h1>Transparansi Page</h1></div></div>`;
+      return `<div id="page-transparency" class="page"><div class="pt-24 text-center"><h1 class="text-3xl font-bold">Transparansi Keuangan</h1><p class="mt-4">Halaman transparansi akan menampilkan laporan keuangan KKG Gugus III.</p></div></div>`;
     }
 
     function getFeedbackPage() {
-      return `<div id="page-feedback" class="page"><div class="pt-24 text-center"><h1>Masukan Page</h1></div></div>`;
+      return `<div id="page-feedback" class="page"><div class="pt-24 text-center"><h1 class="text-3xl font-bold">Masukan & Saran</h1><p class="mt-4">Halaman masukan akan menampilkan formulir untuk memberikan saran kepada KKG Gugus III.</p></div></div>`;
     }
 
     function getContactPage() {
-      return `<div id="page-contact" class="page"><div class="pt-24 text-center"><h1>Kontak Page</h1></div></div>`;
+      return `<div id="page-contact" class="page"><div class="pt-24 text-center"><h1 class="text-3xl font-bold">Hubungi Kami</h1><p class="mt-4">Halaman kontak akan menampilkan informasi kontak dan formulir kontak KKG Gugus III.</p></div></div>`;
     }
   </script>
 </body>
