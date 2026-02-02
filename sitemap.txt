@@ -1,0 +1,26 @@
+# Sitemap untuk KKG Gugus III Website
+# Generator: Manual
+# Last Updated: 2025-01-30
+
+https://kkg-gugus-iii.github.io/
+https://kkg-gugus-iii.github.io/#home
+https://kkg-gugus-iii.github.io/#about
+https://kkg-gugus-iii.github.io/#agenda
+https://kkg-gugus-iii.github.io/#documentation
+https://kkg-gugus-iii.github.io/#transparency
+https://kkg-gugus-iii.github.io/#feedback
+https://kkg-gugus-iii.github.io/#contact
+
+# Priority pages
+https://kkg-gugus-iii.github.io/ - priority: 1.0
+https://kkg-gugus-iii.github.io/#about - priority: 0.8
+https://kkg-gugus-iii.github.io/#agenda - priority: 0.8
+
+# Update frequency
+# home: daily
+# about: monthly
+# agenda: weekly
+# documentation: monthly
+# transparency: monthly
+# feedback: weekly
+# contact: yearly
