@@ -525,4 +525,93 @@ function saveFormData(form) {
   const formValues = Object.fromEntries(formData);
   
   // Only save if there's data
-  if (
+  if (Object.keys(formValues).length > 0) {
+    localStorage.setItem(`form_draft_${form.id || form.name}`, JSON.stringify(formValues));
+    console.log('Form data saved to localStorage');
+  }
+}
+
+/**
+ * Load saved form data
+ * @param {HTMLFormElement} form - Form element
+ */
+function loadFormData(form) {
+  const savedData = localStorage.getItem(`form_draft_${form.id || form.name}`);
+  
+  if (savedData) {
+    try {
+      const formValues = JSON.parse(savedData);
+      
+      Object.keys(formValues).forEach(key => {
+        const field = form.querySelector(`[name="${key}"]`);
+        if (field && (field.type !== 'radio' && field.type !== 'checkbox')) {
+          field.value = formValues[key];
+          validateField(field); // Validate after loading
+        }
+      });
+      
+      console.log('Form data loaded from localStorage');
+      
+    } catch (error) {
+      console.error('Error loading form data:', error);
+    }
+  }
+}
+
+/**
+ * Clear saved form data
+ * @param {HTMLFormElement} form - Form element
+ */
+function clearSavedFormData(form) {
+  localStorage.removeItem(`form_draft_${form.id || form.name}`);
+  console.log('Saved form data cleared');
+}
+
+// ===== INITIALIZATION =====
+
+/**
+ * Initialize forms module
+ */
+function initForms() {
+  console.log('Initializing forms module...');
+  
+  // Initialize form validation
+  initFormValidation();
+  
+  // Initialize Google Forms integration
+  initGoogleForms();
+  
+  // Set up auto-save for forms
+  document.addEventListener('DOMContentLoaded', () => {
+    const forms = document.querySelectorAll('form[data-autosave]');
+    forms.forEach(form => {
+      // Load saved data
+      loadFormData(form);
+      
+      // Save on input
+      const inputs = form.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => saveFormData(form));
+      });
+    });
+  });
+  
+  console.log('Forms module initialized');
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initForms);
+
+// Export functions
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    initFormValidation,
+    validateForm,
+    handleFormSubmission,
+    initGoogleForms,
+    initForms
+  };
+} else {
+  window.initForms = initForms;
+  window.handleFormSubmission = handleFormSubmission;
+}
